@@ -6,42 +6,58 @@ void Logo(void);
 
 int main(void) {
     Logo();
-    int input, target, difference, threshold = 10, max;
+    int input, target, difference, threshold = 10, max, chance;
 
-    printf("ÇëÊäÈëÓÎÏ·×î´óÖµ\n");
-    scanf_s("%d", &max); 
-    srand((unsigned int)time(0)); // Ê¹ÓÃµ±Ç°Ê±¼ä×÷ÎªÖÖ×Ó
-    target = rand() % (max + 1); // Éú³É1~maxµÄËæ»úÊı
+    printf("è¯·è¾“å…¥æ¸¸æˆæœ€å¤§å€¼\n");
+    if (scanf_s("%d", &max) != 1 || max <= 0) { // æ£€æŸ¥è¾“å…¥
+        printf("è¯·è¾“å…¥æœ‰æ•ˆçš„æ­£æ•´æ•°ã€‚\n");
+        system("pause");
+        return 1;
+    }
+    srand((unsigned int)time(0)); // ä½¿ç”¨å½“å‰æ—¶é—´ä½œä¸ºç§å­
+    target = rand() % (max + 1); // ç”Ÿæˆ0~maxçš„éšæœºæ•°
+    chance = max / 15 + 2;
 
-    printf("ÊäÈëÒ»¸öÊı×Ö£¬ÎÒ»á¸æËßÄã´óÁË»òÕßĞ¡ÁË£¬Ö±µ½Äã²ÂÖĞÕıÈ·Êı×Ö(1~%dÒÔÄÚµÄÊı)\n", max);
+    printf("è¾“å…¥ä¸€ä¸ªæ•°å­—ï¼Œæˆ‘ä¼šå‘Šè¯‰ä½ å¤§äº†æˆ–è€…å°äº†ï¼Œç›´åˆ°ä½ çŒœä¸­æ­£ç¡®æ•°å­—(1~%dä»¥å†…çš„æ•°),ä½ ä¸€å…±æœ‰%dæ¬¡æœºä¼š\n", max, chance);
 
-    while (1) {
-        printf("ÇëÊäÈëÄãµÄ²Â²â: ");  // Ôö¼ÓÌáÊ¾ĞÅÏ¢
-        scanf_s("%d", &input); 
+    while (chance > 0) {
+        printf("è¯·è¾“å…¥ä½ çš„çŒœæµ‹: ");
+        if (scanf_s("%d", &input) != 1) { // æ£€æŸ¥è¾“å…¥
+            printf("è¯·è¾“å…¥æœ‰æ•ˆçš„æ•°å­—ã€‚\n");
+            fflush(stdin); // æ¸…é™¤è¾“å…¥ç¼“å†²åŒº
+            continue;
+        }
 
         difference = input - target;
+        --chance;
 
-        if (difference < 0) {
-            if (target - input <= threshold) {
-                printf("ÊıĞ¡ÁË£¬µ«·Ç³£½Ó½ü£¡\n");
-            }
-            else {
-                printf("ÊıÌ«Ğ¡ÁË£¡\n");
-            }
+        if (difference == 0) {
+            printf("æ­å–œä½ çŒœå¯¹äº†ï¼Œæ¸¸æˆç»“æŸï¼æ­£ç¡®æ•°å­—æ˜¯ %d\n", target);
+            break;
         }
-        else if (difference > 0) {
-            if (input - target <= threshold) {
-                printf("Êı´óÁË£¬µ«·Ç³£½Ó½ü£¡\n");
+        else if (difference < 0) {
+            if (target - input <= threshold) {
+                printf("æ•°å°äº†ï¼Œä½†éå¸¸æ¥è¿‘ï¼ä½ è¿˜æœ‰%dæ¬¡æœºä¼š\n",chance);
             }
             else {
-                printf("ÊıÌ«´óÁË£¡\n");
+                printf("æ•°å¤ªå°äº†ï¼ä½ è¿˜æœ‰%dæ¬¡æœºä¼š\n", chance);
             }
         }
         else {
-            printf("¹§Ï²Äã²Â¶ÔÁË£¬ÓÎÏ·½áÊø£¡ÕıÈ·Êı×ÖÊÇ %d\n", target);
-            break;
+            if (input - target <= threshold) {
+                printf("æ•°å¤§äº†ï¼Œä½†éå¸¸æ¥è¿‘ï¼ä½ è¿˜æœ‰%dæ¬¡æœºä¼š\n", chance);
+            }
+            else {
+                printf("æ•°å¤ªå¤§äº†ï¼ä½ è¿˜æœ‰%dæ¬¡æœºä¼š\n", chance);
+            }
+        }
+
+        if (chance == 0) {
+            printf("æ¬¡æ•°ç”¨å°½ï¼Œä½ è¾“äº†ï¼æ­£ç¡®çš„æ•°å­—æ˜¯ %d\n", target);
         }
     }
+
+    system("pause");
     return 0;
 }
 
