@@ -19,12 +19,14 @@
 
 编译代码：确保已安装C编译器（如gcc或Microsoft Visual Studio的开发环境），然后编译代码。
 ```c
-gcc -o number_guessing_game game.c
+gcc -o number_guessing_game num2.c
 ```
 或者在支持C语言的IDE中打开并运行代码。
 
 运行游戏：在控制台中运行程序。
-
+```c
+./number_guessing_game
+```
 输入最大值：程序运行后，输入一个正整数作为游戏的最大值。注意：如果输入的不是正整数，程序会提示错误并暂停，等待用户重新运行游戏。
 
 进行猜测：按照程序提示输入猜测数字，程序会告诉你当前数字是否过大或过小，直至猜对或尝试次数用尽。
